@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirmwareLoader", "FirmwareLoader\FirmwareLoader.csproj", "{6DDCEE49-EAAC-4524-B948-EF711D71ED2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "can", "can\can.csproj", "{26DB9761-EE0E-47AF-B32A-A71E65771737}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6DDCEE49-EAAC-4524-B948-EF711D71ED2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DDCEE49-EAAC-4524-B948-EF711D71ED2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DDCEE49-EAAC-4524-B948-EF711D71ED2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26DB9761-EE0E-47AF-B32A-A71E65771737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26DB9761-EE0E-47AF-B32A-A71E65771737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26DB9761-EE0E-47AF-B32A-A71E65771737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26DB9761-EE0E-47AF-B32A-A71E65771737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
