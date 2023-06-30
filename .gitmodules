@@ -1,0 +1,4 @@
+[submodule "libCanOpenSimple"]
+	path = libCanOpenSimple
+	url = https://github.com/sicrisembay/libCanOpenSimple.git
+	branch = Peak
