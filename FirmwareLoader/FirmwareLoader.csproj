@@ -80,9 +80,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\can\can.csproj">
-      <Project>{26db9761-ee0e-47af-b32a-a71e65771737}</Project>
-      <Name>can</Name>
+    <ProjectReference Include="..\libCanOpenSimple\can_hw\can_hw.csproj">
+      <Project>{aa32bb32-5803-4d2d-96c7-3341224ae265}</Project>
+      <Name>can_hw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libCanOpenSimple\libCanopenSimple.csproj">
+      <Project>{2fb81add-258f-4135-a9b9-17e2aca2448e}</Project>
+      <Name>libCanopenSimple</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
