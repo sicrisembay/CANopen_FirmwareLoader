@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libCanopenSimple", "libCanO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "can_hw", "libCanOpenSimple\can_hw\can_hw.csproj", "{AA32BB32-5803-4D2D-96C7-3341224AE265}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FirmwareLoaderInstaller", "FirmwareLoaderInstaller\FirmwareLoaderInstaller.vdproj", "{C2E9D822-D770-4E67-A10E-F93CF53F865A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,12 @@ Global
 		{AA32BB32-5803-4D2D-96C7-3341224AE265}.Release|x64.Build.0 = Release|x64
 		{AA32BB32-5803-4D2D-96C7-3341224AE265}.Release|x86.ActiveCfg = Release|Any CPU
 		{AA32BB32-5803-4D2D-96C7-3341224AE265}.Release|x86.Build.0 = Release|Any CPU
+		{C2E9D822-D770-4E67-A10E-F93CF53F865A}.Debug|Any CPU.ActiveCfg = Debug
+		{C2E9D822-D770-4E67-A10E-F93CF53F865A}.Debug|x64.ActiveCfg = Debug
+		{C2E9D822-D770-4E67-A10E-F93CF53F865A}.Debug|x86.ActiveCfg = Debug
+		{C2E9D822-D770-4E67-A10E-F93CF53F865A}.Release|Any CPU.ActiveCfg = Release
+		{C2E9D822-D770-4E67-A10E-F93CF53F865A}.Release|x64.ActiveCfg = Release
+		{C2E9D822-D770-4E67-A10E-F93CF53F865A}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

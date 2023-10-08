@@ -38,6 +38,7 @@ namespace FirmwareLoader
         private string m_filePath;
         #endregion // File
         private byte nodeId;
+        private bool isBootDevice = false;
         private libCanopenSimple.libCanopenSimple lco = new libCanopenSimple.libCanopenSimple();
         private Dictionary<UInt32, string> sdoerrormessages = new Dictionary<UInt32, string>();
         Dictionary<UInt32, List<byte>> sdotransferdata = new Dictionary<uint, List<byte>>();
@@ -77,6 +78,8 @@ namespace FirmwareLoader
             this.lco.sdoevent += this.log_SDO;
             this.lco.emcyevent += this.log_EMCY;
             this.interror();
+
+            this.isBootDevice = false;
         }
 
         private void FirmwareLoader_FormClosing(object sender, FormClosingEventArgs e)
@@ -337,10 +340,17 @@ namespace FirmwareLoader
         }
         private void BootUp_cb(SDO sdo)
         {
+            if(sdo.state == SDO.SDO_STATE.SDO_ERROR) {
+                this.isBootDevice = false;
+                return;
+            }
+
             UInt32 deviceType = BitConverter.ToUInt32(sdo.databuffer, 0);
             if(deviceType == 0x544F4F42) {
+                this.isBootDevice = true;
                 this.label_status.BeginInvoke((MethodInvoker)delegate () { this.label_status.Text = "Status: Bootloader device found"; });
             } else {
+                this.isBootDevice = false;
                 this.label_status.BeginInvoke((MethodInvoker)delegate () { this.label_status.Text = "Status: Bootloader device not found"; });
             }
         }
@@ -948,7 +958,12 @@ namespace FirmwareLoader
 
         private void button_Program_Click(object sender, EventArgs e)
         {
-            if(this.hexEntry.isValid) {
+            if (!this.isBootDevice) {
+                this.label_status.Text = "Status: Boot device not found";
+                return;
+            }
+
+            if (this.hexEntry.isValid) {
                 /* 
                  * Erase Flash Sectors 
                  */
@@ -962,22 +977,29 @@ namespace FirmwareLoader
             }
         }
 
-        private void SdoWriteDone(SDO sdo)
+        private void RunAppCb(SDO sdo)
         {
             if (sdo.state == SDO.SDO_STATE.SDO_ERROR) {
-                Console.WriteLine(" **ERROR **");
+                this.label_status.BeginInvoke((MethodInvoker)delegate () { this.label_status.Text = "Status: Invalid app crc"; });
                 return;
             }
 
-            byte[] data = BitConverter.GetBytes(sdo.expitideddata);
-            string str = System.Text.Encoding.Default.GetString(data);
-            Console.WriteLine(str);
+            UInt32 command = 1;
+            this.lco.SDOwrite(this.nodeId, 0x1F51, 0x01, command, null);
+            this.isBootDevice = false;
+            this.label_status.BeginInvoke((MethodInvoker)delegate () { this.label_status.Text = "Status: App running"; });
         }
 
         private void button_runApp_Click(object sender, EventArgs e)
         {
-            UInt32 command = 1;
-            this.lco.SDOwrite(this.nodeId, 0x1F51, 0x01, command, this.SdoWriteDone);
+            if (!this.isBootDevice) {
+                this.label_status.Text = "Status: Boot device not found";
+                return;
+            }
+            /* Check CRC */
+            UInt16 command = 0x01;
+            this.lco.SDOwrite(this.nodeId, 0x2000, 0x01, command, this.RunAppCb);
+            this.label_status.Text = "Status: Checking App";
         }
 
         private void CrcCheckDone(SDO sdo)
@@ -991,6 +1013,10 @@ namespace FirmwareLoader
 
         private void button_checkCrc_Click(object sender, EventArgs e)
         {
+            if(!this.isBootDevice) {
+                this.label_status.Text = "Status: Boot device not found";
+                return;
+            }
             /* Check CRC */
             UInt16 command = 0x01;
             this.lco.SDOwrite(this.nodeId, 0x2000, 0x01, command, this.CrcCheckDone);
@@ -1000,6 +1026,7 @@ namespace FirmwareLoader
         private void button_NmtReset_Click(object sender, EventArgs e)
         {
             this.lco.NMT_ResetNode(this.nodeId);
+            this.label_status.Text = "Status: NMT reset sent to node:" + this.nodeId;
         }
     }
 

@@ -29,6 +29,7 @@ namespace FirmwareLoader
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FirmwareLoader));
             this.groupBox_Connection = new System.Windows.Forms.GroupBox();
             this.cbb_baudrates = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -290,6 +291,7 @@ namespace FirmwareLoader
             this.Controls.Add(this.progressBar_download);
             this.Controls.Add(this.listView_monitor);
             this.Controls.Add(this.groupBox_Connection);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FirmwareLoader";
             this.Text = "Firmware Loader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FirmwareLoader_FormClosing);
