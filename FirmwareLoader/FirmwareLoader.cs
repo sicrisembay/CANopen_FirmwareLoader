@@ -346,7 +346,7 @@ namespace FirmwareLoader
             }
 
             UInt32 deviceType = BitConverter.ToUInt32(sdo.databuffer, 0);
-            if(deviceType == 0x544F4F42) {
+            if(deviceType == 0x424F4F54) { // "BOOT"
                 this.isBootDevice = true;
                 this.label_status.BeginInvoke((MethodInvoker)delegate () { this.label_status.Text = "Status: Bootloader device found"; });
             } else {
