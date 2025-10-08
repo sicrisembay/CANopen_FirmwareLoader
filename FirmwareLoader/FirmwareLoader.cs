@@ -367,8 +367,11 @@ namespace FirmwareLoader
             switch (payload.data[0]) {
                 case 0:
                     msg = "BOOT";
-                    /* Any SDO transaction will force run the bootloader in the target */
-                    this.lco.SDOread(this.nodeId, 0x1000, 0x00, BootUp_cb);
+                    byte nodeId = (byte)( payload.cob & 0x007F );
+                    if (this.nodeId == nodeId) {
+                        /* Any SDO transaction will force run the bootloader in the target */
+                        this.lco.SDOread(this.nodeId, 0x1000, 0x00, BootUp_cb);
+                    }
                     break;
                 case 4:
                     msg = "STOPPED";
